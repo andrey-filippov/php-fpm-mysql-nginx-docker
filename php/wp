@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo -u www-data /usr/local/bin/php /opt/wp-cli.phar $@
