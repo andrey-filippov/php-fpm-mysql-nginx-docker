@@ -12,7 +12,7 @@ build:
 	@docker-compose build
 
 ssh:
-	@docker-compose $(project) exec php-fpm sh
+	@docker exec -it php-unitedbloggers bash
 
 restart: stop start
 
