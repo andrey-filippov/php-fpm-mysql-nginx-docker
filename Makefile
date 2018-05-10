@@ -21,6 +21,6 @@ env:
 		touch ./php/.env;\
 	fi;\
 	echo "PHP_IDE_CONFIF=serverName=wordpress" > ./php/.env;\
-	if [ $(command -v ipconfig) ]; then\
+	if [ ! -z $$(command -v ipconfig) ]; then\
 		echo "XDEBUG_CONFIG=remote_host=$$(ipconfig getifaddr en0)" >> ./php/.env;\
 	fi;
