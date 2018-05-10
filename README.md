@@ -2,7 +2,7 @@
 
 ### Local Development Setup
 
-1. `cd ~/; git clone git@github.com:afilippovsigma/ub-docker.git`
+1. `cd ~/; git clone git@github.com:unitedbloggers/ub-docker.git`
 1. `cd ub-docker`
 1. `make env`
 1. `mkdir projects`
