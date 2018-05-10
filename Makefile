@@ -20,6 +20,7 @@ env:
 	@if [ ! -f ./php/.env ]; then\
 		touch ./php/.env;\
 	fi;\
-	echo "XDEBUG_CONFIG=remote_host=$$(ipconfig getifaddr en0)" > ./php/.env;\
-	echo "PHP_IDE_CONFIF=serverName=wordpress" >> ./php/.env
-
+	echo "PHP_IDE_CONFIF=serverName=wordpress" > ./php/.env;\
+	if [ $(command -v ipconfig) ]; then\
+		echo "XDEBUG_CONFIG=remote_host=$$(ipconfig getifaddr en0)" >> ./php/.env;\
+	fi;
