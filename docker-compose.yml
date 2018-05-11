@@ -1,5 +1,8 @@
 version: "3.4"
 services:
+    memcached:
+        container_name: memcached-unitedbloggers
+        image: memcached:1.5
 
     webserver:
         container_name: webserver-unitedbloggers
@@ -19,6 +22,7 @@ services:
         volumes:
             - ./projects:/var/www/html
         links:
+            - memcached
             - db
             - elasticsearch
         env_file: ./php/.env
