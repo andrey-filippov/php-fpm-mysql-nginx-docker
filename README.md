@@ -3,7 +3,7 @@
 ### Local Development Setup
 
 1. `cd ~/; git clone https://github.com/andrey-filippov/wp-docker.git`
-1. `cd ub-docker`
+1. `cd wp-docker`
 1. `make env`
 1. `mkdir projects`
 1. `cd projects`
