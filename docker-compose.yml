@@ -1,11 +1,11 @@
 version: "3.4"
 services:
     memcached:
-        container_name: memcached-unitedbloggers
+        container_name: memcached-wp
         image: memcached:1.5
 
     webserver:
-        container_name: webserver-unitedbloggers
+        container_name: webserver-wp
         build: ./webserver
         ports:
             - "80:80"
@@ -16,7 +16,7 @@ services:
             - php
 
     php:
-        container_name: php-unitedbloggers
+        container_name: php-wp
         build: ./php
         image: php:7-fpm
         volumes:
