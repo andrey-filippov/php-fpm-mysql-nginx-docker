@@ -1,14 +1,10 @@
 version: "3.4"
 services:
-    memcached:
-        container_name: memcached-wp
-        image: memcached:1.5
-
     webserver:
-        container_name: webserver-wp
+        container_name: lamp-docker-nginx
         build: ./webserver
         ports:
-            - "80:80"
+            - "8011:80"
         volumes:
             - ./projects:/var/www/html
             - ./webserver/logs:/var/log/nginx
@@ -16,50 +12,18 @@ services:
             - php
 
     php:
-        container_name: php-wp
+        container_name: lamp-docker-php
         build: ./php
-        image: php:7-fpm
+        image: php:7.2.8-fpm
         volumes:
             - ./projects:/var/www/html
         links:
-            - memcached
             - db
-            - elasticsearch
         env_file: ./php/.env
 
     db:
         image: mysql:5.7
         ports:
-            - "3388:3306"
-        volumes:
-            - type: volume
-              source: mysql-data
-              target: /var/lib/mysql
-        container_name: db-unitedbloggers
+            - "3399:3306"
+        container_name: lamp-docker-db
         env_file: ./db/.env
-
-    elasticsearch:
-        image: elasticsearch:5
-        container_name: elasticsearch
-        environment:
-            - cluster.name=docker-cluster
-            - discovery.type=single-node
-            - bootstrap.memory_lock=true
-            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-        restart: always
-        ulimits:
-            memlock:
-              soft: -1
-              hard: -1
-        volumes:
-            - esdata:/usr/share/elasticsearch/data
-            - "./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
-            - "./elasticsearch/plugins:/usr/share/elasticsearch/plugins"
-        ports:
-            - "9200:9200"
-
-volumes:
-    mysql-data:
-    esdata:
-        name: esdata
-        driver: local

@@ -3,7 +3,7 @@ server {
 
         set $root $host;
 
-        # for subdomains we want the document root to be the root domain only (e.g. notify.hmn.md > hmn.md)
+        # for subdomains we want the document root to be the root domain only (e.g. site.andreyfilippov.com > andreyfilippov.com)
         # but only if the subdomain isn't also a folder in the server root
         # Since we can't do nested ifs in nginx, this is a bit complicated
         set $strip_sub 0;
@@ -28,38 +28,11 @@ server {
                 set $root 'default';
         }
 
-        # For WordPress develop.
-        if ( -d /var/www/html/$root/src ) {
-                set $root $root/src;
-        }
-
         include /srv/vhosts/nginx-additions*.conf;
 
         root /var/www/html/$root;
 
         index index.php index.html;
-
-        # rewrite for multiple sub-domain sets
-        if ( -d /var/www/html/$root/wordpress ) {
-                rewrite ^(/wp-(admin|includes)/(.*))$ /wordpress$1 last;
-                rewrite ^(/wp-[^/]*\.php)$ /wordpress$1 last;
-        }
-
-        # rewrite for multisite in subdirs, e.g. example.com/subsite1/
-        # if the file doest exist for wp-admin/* or wp-*.php, try looking in the parent dir
-        if ( !-e $request_filename ) {
-                rewrite /wp-admin$ $scheme://$host$uri/ permanent;
-                rewrite ^(/[^/]+)?(/wp-.*) /wordpress$2 last;
-                rewrite ^(/[^/]+)?(/.*\.php) /wordpress$2 last;
-        }
-
-        # wordpress multisite files handler (this is technically legacy but
-        # still used on a lot of mutlisite installs)
-        location ~ ^(/[^/]+/)?files/(.+) {
-                try_files $uri /wp-includes/ms-files.php?file=$2 ;
-                access_log off; log_not_found off; expires max;
-        }
-
 
         # Block all web requests to hidden directories
         location ~ /\. {

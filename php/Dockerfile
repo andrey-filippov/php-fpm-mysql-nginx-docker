@@ -13,10 +13,6 @@ RUN set -ex \
     && docker-php-ext-install mysqli \
     && docker-php-ext-enable xdebug memcached
 
-COPY ./wp /sbin/wp
-
-RUN wget -O/opt/wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x /sbin/wp
-
 RUN { \
 		echo "zend_extension=$(find /usr/local/lib/php/ -name xdebug.so)"; \
 		echo "xdebug.remote_enable=on"; \
