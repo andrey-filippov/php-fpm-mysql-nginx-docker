@@ -1,1 +1,1 @@
-# php-fpm-mysql-nginx-docker
+# php-fpm-mysql-nginx-xdebug-docker
