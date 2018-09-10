@@ -10,7 +10,7 @@ RUN set -ex \
 		wget \
 		mysql-client \
 	&& pecl install xdebug-2.5.0 memcached \
-    && docker-php-ext-install mysqli \
+    && docker-php-ext-install mysqli pdo pdo_mysql \
     && docker-php-ext-enable xdebug memcached
 
 RUN { \

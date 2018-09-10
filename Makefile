@@ -12,7 +12,7 @@ build:
 	@docker-compose build
 
 ssh:
-	@docker exec -it php-lamp-docker bash
+	@docker exec -it lamp-docker-php bash
 
 restart: stop start
 
